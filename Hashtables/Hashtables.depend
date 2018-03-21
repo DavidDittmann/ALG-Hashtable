@@ -1,0 +1,33 @@
+# depslib dependency file v1.0
+1521566038 source:c:\users\dditt\onedrive - fh technikum wien\2sem\alg\alg-hashtable\hashtables\fileio.cpp
+	"FileIO.h"
+	"HashingFunctions.h"
+	"MenuFunctions.h"
+
+1521565983 c:\users\dditt\onedrive - fh technikum wien\2sem\alg\alg-hashtable\hashtables\fileio.h
+
+1521629250 c:\users\dditt\onedrive - fh technikum wien\2sem\alg\alg-hashtable\hashtables\hashingfunctions.h
+	<sstream>
+	<iostream>
+
+1521565990 c:\users\dditt\onedrive - fh technikum wien\2sem\alg\alg-hashtable\hashtables\menufunctions.h
+
+1521629110 source:c:\users\dditt\onedrive - fh technikum wien\2sem\alg\alg-hashtable\hashtables\hashingfunctions.cpp
+	"FileIO.h"
+	"HashingFunctions.h"
+	"MenuFunctions.h"
+	<sstream>
+	<string>
+	<iostream>
+
+1521629184 source:c:\users\dditt\onedrive - fh technikum wien\2sem\alg\alg-hashtable\hashtables\main.cpp
+	"FileIO.h"
+	"HashingFunctions.h"
+	"MenuFunctions.h"
+	<iostream>
+
+1521566036 source:c:\users\dditt\onedrive - fh technikum wien\2sem\alg\alg-hashtable\hashtables\menufunctions.cpp
+	"FileIO.h"
+	"HashingFunctions.h"
+	"MenuFunctions.h"
+
