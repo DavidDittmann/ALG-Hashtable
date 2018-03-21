@@ -15,6 +15,7 @@ class Hashtable
         string name;
         int IndexOther;
         string filename;
+        string WKN;
     public:
         bool getState(void) const;
         void setState(bool s);
@@ -24,6 +25,8 @@ class Hashtable
         void setIndex(int i);
         string getFilename(void) const;
         void setFilename(string str);
+        string getWKN(void) const;
+        void setWKN(string str);
 
         Hashtable()//Constructor
         {
@@ -37,6 +40,9 @@ class Hashtable
 };
 
 int HashFunction(string &str);
+
+void NewHTEntry(int index, int indexother, string &name, string &WKN, bool decide);
+int CollisionDetectAdd(int index, string &name, bool decide, int offset);
 
 
 #endif // HASHINGFUNCTIONS_H_INCLUDED
