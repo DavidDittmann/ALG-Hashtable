@@ -5,9 +5,6 @@
 #include <string>
 #include <iostream>
 
-Hashtable* Longname[1000];//PointerArray der Klasse Hashtable
-Hashtable* Kuerzel[1000];
-
 void HT_init()
 {
     for(int i=0;i<1000;i++)//Allozieren des Speichers
@@ -88,19 +85,21 @@ void NewHTEntry(int index, int indexother, string &name, string &WKN, bool decid
         Longname[index]->setName(name);
         Longname[index]->setWKN(WKN);
         Longname[index]->setIndex(indexother);
+        Longname[index]->setState(true);
     }
     else
     {
         Kuerzel[index]->setName(name);
         Kuerzel[index]->setWKN(WKN);
         Kuerzel[index]->setIndex(indexother);
+        Kuerzel[index]->setState(true);
     }
 }
 
 int CollisionDetectAdd(int index, string &name, bool decide, int offset)
 {
     int indexO=index;
-    index+=(offset*offset);
+    index=(index+(offset*offset))%1000;//Modulo SIZE!!!!
     if(decide==true)
     {
         if(Longname[index]->getState()==true)//Eintrag Gültig oder Leer
@@ -141,16 +140,55 @@ int CollisionDetectAdd(int index, string &name, bool decide, int offset)
     }
 }
 
-void ADD()
+int CollisionDetectSEARCH(int index,string str,bool decide,int offset)
 {
-    string name,kuerzel,wkn;
-    int hashN, hashK;
-    cout<<"Geben Sie den Namen, das Kuerzel und die WKN-Nr. der Aktie an:"<<endl;
-    cout<<"Name: ";     cin>>name;
-    cout<<"Kuerzel: ";  cin>>kuerzel;
-    cout<<"WKN";        cin>>wkn;
-    hashN=HashFunction(name);
-    hashK=HashFunction(kuerzel);
-    NewHTEntry(hashN,hashK,name,wkn,true);//True bei Name-, False bei Kuerzel-Tabelle
-    NewHTEntry(hashK,hashN,kuerzel,wkn,false);
+    int indexO=index;
+    index=(index+(offset*offset))%1000;
+    if(decide==true)
+    {
+        if(Longname[index]->getState()==true)
+        {
+            if(Longname[index]->getName()=="")
+                return -1;
+            else if(Longname[index]->getName()!=str)
+            {
+                offset++;
+                return CollisionDetectSEARCH(indexO,str,decide,offset);
+            }
+            else if(Longname[index]->getName()==str)
+            {
+                return index;
+            }
+        }
+        else
+        {
+            offset++;
+            return CollisionDetectSEARCH(indexO,str,decide,offset);
+        }
+    }
+    else
+    {
+        if(Kuerzel[index]->getState()==true)
+        {
+            if(Kuerzel[index]->getName()=="")
+                return -1;
+            else if(Kuerzel[index]->getName()!=str)
+            {
+                offset++;
+                return CollisionDetectSEARCH(indexO,str,decide,offset);
+            }
+            else if(Kuerzel[index]->getName()==str)
+            {
+                return index;
+            }
+        }
+        else
+        {
+            offset++;
+            return CollisionDetectSEARCH(indexO,str,decide,offset);
+        }
+    }
+    return -1;
 }
+
+

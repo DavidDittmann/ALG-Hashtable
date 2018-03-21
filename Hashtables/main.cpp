@@ -9,9 +9,6 @@ using namespace std;
 
 int main()
 {
-    int i;
-
-
     string str="Hallo";
 
     cout<<HashFunction(str);

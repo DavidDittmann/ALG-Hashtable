@@ -32,6 +32,12 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="FileIO.cpp" />
+		<Unit filename="FileIO.h" />
+		<Unit filename="HashingFunctions.cpp" />
+		<Unit filename="HashingFunctions.h" />
+		<Unit filename="MenuFunctions.cpp" />
+		<Unit filename="MenuFunctions.h" />
 		<Unit filename="main.cpp" />
 		<Extensions>
 			<code_completion />

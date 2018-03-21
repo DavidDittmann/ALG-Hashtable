@@ -1,5 +1,8 @@
 #ifndef HASHINGFUNCTIONS_H_INCLUDED
 #define HASHINGFUNCTIONS_H_INCLUDED
+#include "FileIO.h"
+#include "HashingFunctions.h"
+#include "MenuFunctions.h"
 
 #define SIZE 1000 //Muss auch in main.cpp geändert werden!
 
@@ -39,10 +42,14 @@ class Hashtable
 
 };
 
+Hashtable* Longname[1000];//PointerArray der Klasse Hashtable
+Hashtable* Kuerzel[1000];
+
 int HashFunction(string &str);
 
 void NewHTEntry(int index, int indexother, string &name, string &WKN, bool decide);
 int CollisionDetectAdd(int index, string &name, bool decide, int offset);
+int CollisionDetectSEARCH(int index,string str,bool decide, int offset);
 
 
 #endif // HASHINGFUNCTIONS_H_INCLUDED
