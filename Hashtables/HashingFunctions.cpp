@@ -1,9 +1,9 @@
-#include "FileIO.h"
 #include "HashingFunctions.h"
-#include "MenuFunctions.h"
 #include <sstream>
 #include <string>
 #include <iostream>
+
+
 
 void HT_init()
 {
@@ -11,6 +11,15 @@ void HT_init()
     {
         Longname[i]=new Hashtable;
         Kuerzel[i]=new Hashtable;
+    }
+}
+
+void HT_kill()
+{
+    for(int i=0;i<1000;i++)//Allozieren des Speichers
+    {
+        delete(Longname[i]);
+        delete(Kuerzel[i]);
     }
 }
 

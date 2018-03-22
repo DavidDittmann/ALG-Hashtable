@@ -1,13 +1,9 @@
 #ifndef HASHINGFUNCTIONS_H_INCLUDED
 #define HASHINGFUNCTIONS_H_INCLUDED
-#include "FileIO.h"
-#include "HashingFunctions.h"
-#include "MenuFunctions.h"
 
 #define SIZE 1000 //Muss auch in main.cpp geändert werden!
 
 #include <sstream>
-#include <iostream>
 
 using namespace std;
 
@@ -42,8 +38,8 @@ class Hashtable
 
 };
 
-Hashtable* Longname[1000];//PointerArray der Klasse Hashtable
-Hashtable* Kuerzel[1000];
+void HT_init(void);
+void HT_kill(void);
 
 int HashFunction(string &str);
 

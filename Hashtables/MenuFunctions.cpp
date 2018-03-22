@@ -1,7 +1,6 @@
+#include "MenuFunctions.h"
 #include "FileIO.h"
 #include "HashingFunctions.h"
-#include "MenuFunctions.h"
-#include <sstream>
 #include <iostream>
 #include <string>
 
@@ -39,7 +38,7 @@ void SEARCH()
                 cout<<"Eintrag nicht gefunden"<<endl;
             else
             {
-                LastEntry(index,true);
+                LastO(index,true);
             }
         }
         else if(input=='k'||'K')
@@ -51,7 +50,7 @@ void SEARCH()
                 cout<<"Eintrag nicht gefunden"<<endl;
             else
             {
-                LastEntry(index,true);
+                LastO(index,true);
             }
         }
         else
