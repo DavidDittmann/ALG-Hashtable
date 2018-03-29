@@ -1,8 +1,4 @@
 #ifndef MENUFUNCTIONS_H_INCLUDED
 #define MENUFUNCTIONS_H_INCLUDED
 
-void ADD(void);
-void SEARCH(void);
-
-
 #endif // MENUFUNCTIONS_H_INCLUDED
