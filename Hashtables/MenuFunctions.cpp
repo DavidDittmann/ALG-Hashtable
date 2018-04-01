@@ -50,11 +50,11 @@ void DEL(std::string &str,Entry HT[],Kuerzel KU[],bool s)//bool s -> Auswahl ob 
     int index=-1,iK=-1;
     if(s)//Suche durch Name
     {
-        index=DELSEARCH_HT(str,HT,0);
+        index=SEARCH_HT(str,HT,0);
         if(index>=0)
         {
             string tmp=HT[index].getKuerzel();
-            iK=DELSEARCH_KU(tmp,KU,0);
+            iK=SEARCH_KU(tmp,KU,0);
             if(iK>=0)
             {
                 tmp="";
@@ -74,7 +74,7 @@ void DEL(std::string &str,Entry HT[],Kuerzel KU[],bool s)//bool s -> Auswahl ob 
                 KU[iK].setKuerzel(tmp);
                 KU[iK].setReferenz(NULL);
                 KU[iK].setState(false);
-                cout<<"Eintrag gelöscht"<<endl;
+                cout<<"Eintrag geloescht"<<endl;
             }
             else
                 cout<<"Eintrag nicht gefunden!"<<endl;
@@ -84,7 +84,7 @@ void DEL(std::string &str,Entry HT[],Kuerzel KU[],bool s)//bool s -> Auswahl ob 
     }
     else//Suche durch Kürzel
     {
-        index=DELSEARCH_KU(str,KU,0);
+        index=SEARCH_KU(str,KU,0);
         if(index>=0)
         {
             string tmp="";
@@ -113,3 +113,48 @@ void DEL(std::string &str,Entry HT[],Kuerzel KU[],bool s)//bool s -> Auswahl ob 
             cout<<"Eintrag nicht gefunden!"<<endl;
     }
 }
+
+void SEARCH(std::string &str,Entry HT[],Kuerzel KU[],bool s)////bool s -> Auswahl ob durch Kürzel (false) oder Name (true) gesucht wird
+{
+    int index;
+    if(s)//Suche nach Name
+    {
+        index=SEARCH_HT(str,HT,0);
+        if(index>=0)
+        {
+            cout<<"Letzter Eintrag von "<<HT[index].getName()<<":"<<endl;
+            cout<<"Date: "<<HT[index].DataSet[0].Date<<endl;
+            cout<<"High: "<<HT[index].DataSet[0].High<<endl;
+            cout<<"Low: "<<HT[index].DataSet[0].Low<<endl;
+            cout<<"Open: "<<HT[index].DataSet[0].Open<<endl;
+            cout<<"Close: "<<HT[index].DataSet[0].Close<<endl;
+            cout<<"Adj. Close: "<<HT[index].DataSet[0].AdjClose<<endl;
+        }
+        else
+        {
+            cout<<"Aktie nicht gefunden"<<endl;
+        }
+    }
+    else//Suche nach Kürzel
+    {
+        index=SEARCH_KU(str,KU,0);
+        if(index>=0)
+        {
+            Entry* PT=KU[index].getReferenz();
+
+            cout<<"Letzter Eintrag von "<<PT->getName()<<":"<<endl;
+            cout<<"Date: "<<PT->DataSet[0].Date<<endl;
+            cout<<"High: "<<PT->DataSet[0].High<<endl;
+            cout<<"Low: "<<PT->DataSet[0].Low<<endl;
+            cout<<"Open: "<<PT->DataSet[0].Open<<endl;
+            cout<<"Close: "<<PT->DataSet[0].Close<<endl;
+            cout<<"Adj. Close: "<<PT->DataSet[0].AdjClose<<endl;
+
+        }
+        else
+        {
+            cout<<"Aktie nicht gefunden"<<endl;
+        }
+    }
+}
+void SEARCH(std::string str,Entry HT[],Kuerzel KU[],bool s);

@@ -134,7 +134,7 @@ int CollisionDetectKU(string &K,int OriginalIndex,Kuerzel KU[],int offset)
     return ret;
 }
 
-int DELSEARCH_HT(string &str,Entry HT[],int offset)
+int SEARCH_HT(string &str,Entry HT[],int offset)
 {
     int index,ret;
     index=HashFunc(str)+(offset*offset);
@@ -152,18 +152,18 @@ int DELSEARCH_HT(string &str,Entry HT[],int offset)
         else
         {
             offset++;
-            ret=DELSEARCH_HT(str,HT,offset);
+            ret=SEARCH_HT(str,HT,offset);
         }
     }
     else
     {
         offset++;
-        ret=DELSEARCH_HT(str,HT,offset);
+        ret=SEARCH_HT(str,HT,offset);
     }
 
     return ret;
 }
-int DELSEARCH_KU(string &str,Kuerzel KU[],int offset)
+int SEARCH_KU(string &str,Kuerzel KU[],int offset)
 {
     int index,ret;
     index=HashFunc(str)+(offset*offset);
@@ -181,13 +181,13 @@ int DELSEARCH_KU(string &str,Kuerzel KU[],int offset)
         else
         {
             offset++;
-            ret=DELSEARCH_KU(str,KU,offset);
+            ret=SEARCH_KU(str,KU,offset);
         }
     }
     else
     {
         offset++;
-        ret=DELSEARCH_KU(str,KU,offset);
+        ret=SEARCH_KU(str,KU,offset);
     }
 
     return ret;

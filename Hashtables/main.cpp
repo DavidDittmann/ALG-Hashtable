@@ -20,8 +20,21 @@ int main()
     ADD(N,K,W,Hashtable,Kurztable);
     ADD(N,K,W,Hashtable,Kurztable);//Bei selben Namen wird überschrieben
 
+    int i=HashFunc(N);
+
+    Hashtable[i].DataSet[0].Open=1;
+    Hashtable[i].DataSet[0].Close=2;
+    Hashtable[i].DataSet[0].High=3;
+    Hashtable[i].DataSet[0].Low=4;
+    Hashtable[i].DataSet[0].AdjClose=5;
+    Hashtable[i].DataSet[0].Date="01.04.2018";
+    SEARCH(N,Hashtable,Kurztable,true);
+    SEARCH(K,Hashtable,Kurztable,false);
+
     DEL(N,Hashtable,Kurztable,true);
     DEL(N,Hashtable,Kurztable,true);
+
+
 
 
     //------------------------Zugrifftests für die Haupt-Hashtable------------------------------

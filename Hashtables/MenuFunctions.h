@@ -4,5 +4,6 @@
 
 void ADD(std::string &N,std::string &K,std::string &w,Entry HT[],Kuerzel KU[]);
 void DEL(std::string &str,Entry HT[],Kuerzel KU[],bool s);
+void SEARCH(std::string &str,Entry HT[],Kuerzel KU[],bool s);
 
 #endif // MENUFUNCTIONS_H_INCLUDED
