@@ -18,6 +18,10 @@ int main()
     cout<<"WKN: ";cin>>W;
 
     ADD(N,K,W,Hashtable,Kurztable);
+    ADD(N,K,W,Hashtable,Kurztable);
+
+    DEL(N,Hashtable,Kurztable,true);
+    DEL(N,Hashtable,Kurztable,true);
 
 
     //------------------------Zugrifftests für die Haupt-Hashtable------------------------------

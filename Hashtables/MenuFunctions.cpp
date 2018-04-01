@@ -35,3 +35,54 @@ void ADD(string &N,string &K,string &w, Entry HT[],Kuerzel KU[])
         HT[hv_name].DataSet[i].Low=0;
     }
 }
+
+void DEL(std::string &str,Entry HT[],Kuerzel KU[],bool s)//bool s -> Auswahl ob durch Kürzel (false) oder Name (true) gesucht wird
+{
+    int index=-1,iK=-1;
+    if(s)//Suche durch Name
+    {
+        index=DELSEARCH_HT(str,HT,0);
+        if(index>=0)
+        {
+            string tmp=HT[index].getKuerzel();
+            iK=DELSEARCH_KU(tmp,KU,0);
+            if(iK>=0)
+            {
+                tmp="";
+                HT[index].setState(false);
+                HT[index].setName(tmp);
+                HT[index].setKuerzel(tmp);
+                HT[index].setWKN(tmp);
+                KU[iK].setKuerzel(tmp);
+                KU[iK].setReferenz(NULL);
+                KU[iK].setState(false);
+                cout<<"Eintrag gelöscht"<<endl;
+            }
+            else
+                cout<<"Eintrag nicht gefunden!"<<endl;
+        }
+        else
+            cout<<"Eintrag nicht gefunden!"<<endl;
+    }
+    else//Suche durch Kürzel
+    {
+        index=DELSEARCH_KU(str,KU,0);
+        if(index>=0)
+        {
+            string tmp="";
+            Entry* PT;
+            PT=KU[index].getReferenz();
+            KU[index].setKuerzel(tmp);
+            KU[index].setReferenz(NULL);
+            KU[index].setState(false);
+
+            PT->setState(false);
+            PT->setName(tmp);
+            PT->setKuerzel(tmp);
+            PT->setWKN(tmp);
+            cout<<"Eintrag gelöscht"<<endl;
+        }
+        else
+            cout<<"Eintrag nicht gefunden!"<<endl;
+    }
+}

@@ -126,4 +126,61 @@ int CollisionDetectKU(string &K,int OriginalIndex,Kuerzel KU[],int offset)
     return ret;
 }
 
+int DELSEARCH_HT(string &str,Entry HT[],int offset)
+{
+    int index,ret;
+    index=HashFunc(str)+(offset*offset);
 
+    if(HT[index].getState())//Wert Gültig
+    {
+        if(HT[index].getName()==str)
+        {
+            ret=index;
+        }
+        else if(HT[index].getName()=="")
+        {
+            ret=-1;
+        }
+        else
+        {
+            offset++;
+            ret=DELSEARCH_HT(str,HT,offset);
+        }
+    }
+    else
+    {
+        offset++;
+        ret=DELSEARCH_HT(str,HT,offset);
+    }
+
+    return ret;
+}
+int DELSEARCH_KU(string &str,Kuerzel KU[],int offset)
+{
+    int index,ret;
+    index=HashFunc(str)+(offset*offset);
+
+    if(KU[index].getState())//Wert Gültig
+    {
+        if(KU[index].getKuerzel()==str)
+        {
+            ret=index;
+        }
+        else if(KU[index].getKuerzel()=="")
+        {
+            ret=-1;
+        }
+        else
+        {
+            offset++;
+            ret=DELSEARCH_KU(str,KU,offset);
+        }
+    }
+    else
+    {
+        offset++;
+        ret=DELSEARCH_KU(str,KU,offset);
+    }
+
+    return ret;
+}

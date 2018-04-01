@@ -75,5 +75,8 @@ int HashFunc(string &str);
 int CollisionDetectHT(string &N,int OriginalIndex,Entry HT[],int offset);
 int CollisionDetectKU(string &K,int OriginalIndex,Kuerzel KU[],int offset);
 
+int DELSEARCH_HT(string &str,Entry HT[],int offset);
+int DELSEARCH_KU(string &str,Kuerzel KU[],int offset);
+
 
 #endif // HASHTABLE_H_INCLUDED
