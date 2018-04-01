@@ -20,52 +20,110 @@ int HashFunc(string &str)
 //-----CLASS ENTRY FUNKTIONEN-----
 void Entry::setName(string &str)
 {
-    Name=str;
+    this->Name=str;
 }
 void Entry::setKuerzel(string &str)
 {
-    Kuerzel=str;
+    this->Kuerzel=str;
 }
 void Entry::setWKN(string &str)
 {
-    WKN=str;
+    this->WKN=str;
 }
 void Entry::setState(bool s)
 {
-    State=s;
+    this->State=s;
 }
 string Entry::getName(void)
 {
-    return Name;
+    return this->Name;
 }
 string Entry::getKuerzel(void)
 {
-    return Kuerzel;
+    return this->Kuerzel;
 }
 string Entry::getWKN(void)
 {
-    return WKN;
+    return this->WKN;
 }
 bool Entry::getState(void)
 {
-    return State;
+    return this->State;
 }
 
 
 //-----CLASS KUERZEL FUNKTIONEN------
 void Kuerzel::setKuerzel(string &str)
 {
-    Kurz=str;
+    this->Kurz=str;
 }
 void Kuerzel::setReferenz(Entry* pt)
 {
-    Referenz = pt;
+    this->Referenz = pt;
 }
 Entry* Kuerzel::getReferenz(void)
 {
-    return Referenz;
+    return this->Referenz;
 }
 string Kuerzel::getKuerzel(void)
 {
-    return Kurz;
+    return this->Kurz;
 }
+void Kuerzel::setState(bool s)
+{
+    this->State=s;
+}
+bool Kuerzel::getState(void)
+{
+    return this->State;
+}
+
+
+int CollisionDetectHT(string &N,int OriginalIndex,Entry HT[],int offset)
+{
+    int I=OriginalIndex+(offset*offset);
+    int ret;
+
+    if(HT[I].getState())//Eintrag Gültig (TRUE)
+    {
+        if(HT[I].getName()==""||HT[I].getName()==N)
+        {
+            ret=I%1000;
+        }
+        else
+        {
+            offset++;
+            ret=CollisionDetectHT(N,OriginalIndex,HT,offset);
+        }
+    }
+    else
+    {
+        ret=I%1000;
+    }
+    return ret;
+}
+int CollisionDetectKU(string &K,int OriginalIndex,Kuerzel KU[],int offset)
+{
+    int I=OriginalIndex+(offset*offset);
+    int ret;
+
+    if(KU[I].getState())//Eintrag Gültig (TRUE)
+    {
+        if(KU[I].getKuerzel()==""||KU[I].getKuerzel()==K)
+        {
+            ret=I%1000;
+        }
+        else
+        {
+            offset++;
+            ret=CollisionDetectKU(K,OriginalIndex,KU,offset);
+        }
+    }
+    else
+    {
+        ret=I%1000;
+    }
+    return ret;
+}
+
+

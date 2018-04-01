@@ -1,23 +1,27 @@
 #define SIZE 1000 //Muss auch in HashingFunctions.h geändert werden!
 
 #include "Hashtable.h"
+#include "MenuFunctions.h"
 #include <iostream>
 
 using namespace std;
 
 int main()
 {
+    string N,K,W;
     //-----------------------Initialisierung der Hash-Tabellen------------------------------
-    Entry* Hashtable[1000];
-    Kuerzel* Kurztable[1000];
-    for(int i=0;i<1000;i++)
-    {
-        Hashtable[i]=new Entry;
-        Kurztable[i]=new Kuerzel;
-    }
+    Entry* Hashtable=new Entry[1000];
+    Kuerzel* Kurztable=new Kuerzel[1000];
+
+    cout<<"Name: ";cin>>N;
+    cout<<"Kurz: ";cin>>K;
+    cout<<"WKN: ";cin>>W;
+
+    ADD(N,K,W,Hashtable,Kurztable);
 
 
     //------------------------Zugrifftests für die Haupt-Hashtable------------------------------
+    /*
     string str="Microsoft";
     string Kuerzel="MS";
     string wkn="abc123";
@@ -78,13 +82,26 @@ int main()
     Ref=Kurztable[1]->getReferenz();
     cout<<"KT ohne Set: "<<k<<Ref<<endl;
 
+    */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     //--------------------------------Freigeben der Tabellen------------------------------
-    for(int i=0;i<1000;i++)
-    {
-        delete(Hashtable[i]);
-        delete(Kurztable[i]);
-    }
+    delete[] Hashtable;
+    delete[] Kurztable;
 
 
     return 0;

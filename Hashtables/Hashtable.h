@@ -49,10 +49,12 @@ class Kuerzel{
     private:
         string Kurz;
         Entry* Referenz;
+        bool State;
     public:
         Kuerzel()
         {
             Kurz="";
+            State=true;
             Referenz=NULL;
             //cout<<"Kuerzeleintrag erstellt"<<endl;
         }
@@ -64,10 +66,14 @@ class Kuerzel{
         void setReferenz(Entry* pt);
         Entry* getReferenz(void);
         string getKuerzel(void);
+        void setState(bool s);
+        bool getState(void);
 };
 
 int HashFunc(string &str);
 
+int CollisionDetectHT(string &N,int OriginalIndex,Entry HT[],int offset);
+int CollisionDetectKU(string &K,int OriginalIndex,Kuerzel KU[],int offset);
 
 
 #endif // HASHTABLE_H_INCLUDED
