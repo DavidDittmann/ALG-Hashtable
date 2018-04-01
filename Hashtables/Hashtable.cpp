@@ -86,9 +86,13 @@ int CollisionDetectHT(string &N,int OriginalIndex,Entry HT[],int offset)
 
     if(HT[I].getState())//Eintrag Gültig (TRUE)
     {
-        if(HT[I].getName()==""||HT[I].getName()==N)
+        if(HT[I].getName()=="")
         {
             ret=I%1000;
+        }
+        else if(HT[I].getName()==N)
+        {
+            ret=-1;
         }
         else
         {
@@ -109,9 +113,13 @@ int CollisionDetectKU(string &K,int OriginalIndex,Kuerzel KU[],int offset)
 
     if(KU[I].getState())//Eintrag Gültig (TRUE)
     {
-        if(KU[I].getKuerzel()==""||KU[I].getKuerzel()==K)
+        if(KU[I].getKuerzel()=="")
         {
             ret=I%1000;
+        }
+        else if(KU[I].getKuerzel()==K)
+        {
+            ret=-1;
         }
         else
         {
