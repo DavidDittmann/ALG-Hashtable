@@ -3,6 +3,8 @@
 #include "FileIO.h"
 #include <iostream>
 #include <string>
+#include <fstream>
+#include <sstream>
 
 using namespace std;
 
@@ -45,7 +47,7 @@ void ADD(string &N,string &K,string &w, Entry HT[],Kuerzel KU[])
 
 }
 
-void DEL(std::string &str,Entry HT[],Kuerzel KU[],bool s)//bool s -> Auswahl ob durch Kürzel (false) oder Name (true) gesucht wird
+void DEL(string &str,Entry HT[],Kuerzel KU[],bool s)//bool s -> Auswahl ob durch Kürzel (false) oder Name (true) gesucht wird
 {
     int index=-1,iK=-1;
     if(s)//Suche durch Name
@@ -66,6 +68,7 @@ void DEL(std::string &str,Entry HT[],Kuerzel KU[],bool s)//bool s -> Auswahl ob 
                 {
                     HT[index].DataSet[i].Date="";
                     HT[index].DataSet[i].AdjClose=0;
+                    HT[index].DataSet[i].Volume=0;
                     HT[index].DataSet[i].Close=0;
                     HT[index].DataSet[i].Open=0;
                     HT[index].DataSet[i].High=0;
@@ -102,6 +105,7 @@ void DEL(std::string &str,Entry HT[],Kuerzel KU[],bool s)//bool s -> Auswahl ob 
             {
                 PT->DataSet[i].Date="";
                 PT->DataSet[i].AdjClose=0;
+                PT->DataSet[i].Volume=0;
                 PT->DataSet[i].Close=0;
                 PT->DataSet[i].Open=0;
                 PT->DataSet[i].High=0;
@@ -114,7 +118,7 @@ void DEL(std::string &str,Entry HT[],Kuerzel KU[],bool s)//bool s -> Auswahl ob 
     }
 }
 
-void SEARCH(std::string &str,Entry HT[],Kuerzel KU[],bool s)////bool s -> Auswahl ob durch Kürzel (false) oder Name (true) gesucht wird
+void SEARCH(string &str,Entry HT[],Kuerzel KU[],bool s)//bool s -> Auswahl ob durch Kürzel (false) oder Name (true) gesucht wird
 {
     int index;
     if(s)//Suche nach Name
@@ -122,13 +126,16 @@ void SEARCH(std::string &str,Entry HT[],Kuerzel KU[],bool s)////bool s -> Auswah
         index=SEARCH_HT(str,HT,0);
         if(index>=0)
         {
+
             cout<<"Letzter Eintrag von "<<HT[index].getName()<<":"<<endl;
             cout<<"Date: "<<HT[index].DataSet[0].Date<<endl;
+            cout<<"Volume: "<<HT[index].DataSet[0].Volume<<endl;
             cout<<"High: "<<HT[index].DataSet[0].High<<endl;
             cout<<"Low: "<<HT[index].DataSet[0].Low<<endl;
             cout<<"Open: "<<HT[index].DataSet[0].Open<<endl;
             cout<<"Close: "<<HT[index].DataSet[0].Close<<endl;
             cout<<"Adj. Close: "<<HT[index].DataSet[0].AdjClose<<endl;
+
         }
         else
         {
@@ -142,8 +149,10 @@ void SEARCH(std::string &str,Entry HT[],Kuerzel KU[],bool s)////bool s -> Auswah
         {
             Entry* PT=KU[index].getReferenz();
 
+
             cout<<"Letzter Eintrag von "<<PT->getName()<<":"<<endl;
             cout<<"Date: "<<PT->DataSet[0].Date<<endl;
+            cout<<"Volume: "<<PT->DataSet[0].Volume<<endl;
             cout<<"High: "<<PT->DataSet[0].High<<endl;
             cout<<"Low: "<<PT->DataSet[0].Low<<endl;
             cout<<"Open: "<<PT->DataSet[0].Open<<endl;
@@ -157,4 +166,75 @@ void SEARCH(std::string &str,Entry HT[],Kuerzel KU[],bool s)////bool s -> Auswah
         }
     }
 }
+
 void SEARCH(std::string str,Entry HT[],Kuerzel KU[],bool s);
+void IMPORT(string &filename,Entry HT[],Kuerzel KU[],string &str, bool s)//bool s -> Auswahl ob durch Kürzel (false) oder Name (true) gesucht wird
+{
+    int index,i=0;
+    string input_line,input_var;
+
+    if(s)
+    {
+        index=SEARCH_HT(str,HT,0);
+        if(index>=0)
+        {
+            ifstream infile(filename); // for example
+            Data DSet[30];
+            getline(infile,input_line);
+            while(getline(infile,input_line)&&i!=30)
+            {
+                stringstream ss(input_line);
+                getline(ss,input_var,',');
+                DSet[i].Date=input_var;
+                getline(ss,input_var,',');
+                DSet[i].Open=stod(input_var);
+                getline(ss,input_var,',');
+                DSet[i].High=stod(input_var);
+                getline(ss,input_var,',');
+                DSet[i].Low=stod(input_var);
+                getline(ss,input_var,',');
+                DSet[i].Close=stod(input_var);
+                getline(ss,input_var,',');
+                DSet[i].AdjClose=stod(input_var);
+                getline(ss,input_var,',');
+                DSet[i].Volume=stod(input_var);
+                i++;
+            }
+
+            i--;
+            int j=0;
+            for(;i>=0;i--)
+            {
+                HT[index].DataSet[j].Date=DSet[i].Date;
+                HT[index].DataSet[j].Volume=DSet[i].Volume;
+                HT[index].DataSet[j].Close=DSet[i].Close;
+                HT[index].DataSet[j].Open=DSet[i].Open;
+                HT[index].DataSet[j].Low=DSet[i].Low;
+                HT[index].DataSet[j].High=DSet[i].High;
+                HT[index].DataSet[j].AdjClose=DSet[i].AdjClose;
+
+                j++;
+            }
+            //Eintragen der Daten
+        }
+        else
+        {
+            cout<<"Aktie nicht eingetragen"<<endl;
+        }
+    }
+    else
+    {
+        index=SEARCH_KU(str,KU,0);
+        if(index>=0)
+        {
+            //Entry* PT=KU[index].getReferenz();
+
+            //Eintragen der Daten
+
+        }
+        else
+        {
+            cout<<"Aktie nicht eingetragen"<<endl;
+        }
+    }
+}
